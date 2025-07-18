@@ -5,7 +5,7 @@ interface Teacher {
   fullTimeEmployee: boolean;
   yearsOfExperience?: number;
   location: string;
-  [key: string]: any; // allows additional properties
+  [key: string]: any;
 }
 
 // 2. Directors interface extending Teacher
@@ -23,7 +23,30 @@ const printTeacher: printTeacherFunction = (firstName, lastName) => {
   return `${firstName.charAt(0)}. ${lastName}`;
 };
 
-// 5. Example usage
+// 5. StudentClass Interfaces
+interface StudentClassInterface {
+  workOnHomework(): string;
+  displayName(): string;
+}
+
+interface StudentClassConstructor {
+  new (firstName: string, lastName: string): StudentClassInterface;
+}
+
+// 6. StudentClass Implementation
+class StudentClass implements StudentClassInterface {
+  constructor(private firstName: string, private lastName: string) {}
+
+  workOnHomework(): string {
+    return "Currently working";
+  }
+
+  displayName(): string {
+    return this.firstName;
+  }
+}
+
+// 7. Example usage
 const teacher3: Teacher = {
   firstName: 'John',
   lastName: 'Doe',
@@ -40,6 +63,10 @@ const director1: Directors = {
   numberOfReports: 17,
 };
 
+const student = new StudentClass('Alice', 'Smith');
+
 console.log('Teacher:', teacher3);
 console.log('Director:', director1);
 console.log('Print Teacher:', printTeacher('John', 'Doe')); // J. Doe
+console.log('Student Display Name:', student.displayName()); // Alice
+console.log('Student Work:', student.workOnHomework()); // Currently working
